@@ -1,25 +1,29 @@
 import 'dart:io' show stdin;
 import 'package:cpu_scheduler/extensions/list_int.dart';
 
-class Process {
+//@immutable
+//the reference for each algorithm`s process
+class ProcessModel {
   final String name;
   final int arrivedTime;
   final int cpuTime;
   final int priority;
 
-  Process({
+  ProcessModel({
     required this.name,
     required this.arrivedTime,
     required this.cpuTime,
     required this.priority,
   });
 
-  factory Process.empty() => Process(
+  factory ProcessModel.empty() => ProcessModel(
         name: 'foo',
         arrivedTime: 0,
         cpuTime: 0,
         priority: 0,
       );
+
+  int getCpuAndArrived() => cpuTime + arrivedTime;
 
   @override
   String toString() {
@@ -27,7 +31,7 @@ class Process {
   }
 
   @override
-  bool operator ==(covariant Process other) =>
+  bool operator ==(covariant ProcessModel other) =>
       name == other.name &&
       arrivedTime == other.arrivedTime &&
       cpuTime == other.cpuTime &&
@@ -44,9 +48,9 @@ class Process {
 
 typedef GetInput = String? Function();
 
-///generating a list<Process> with 5 elements
+///generating a list<ProcessModel> with 5 elements
 ///argument designed for testability
-List<Process> getProcessList({
+List<ProcessModel> getProcessesList({
   GetInput? inputFn,
   String? getName,
   bool? hint,
@@ -55,7 +59,7 @@ List<Process> getProcessList({
   String name;
   GetInput getInput = (inputFn == null) ? () => stdin.readLineSync() : inputFn;
   final parameters = <int>[];
-  final processes = <Process>[];
+  final processes = <ProcessModel>[];
 
   while (cnt <= 5) {
     name = (getName == null) ? 'P$cnt' : getName;
@@ -80,7 +84,7 @@ List<Process> getProcessList({
         break;
       }
     }
-    final process = Process(
+    final process = ProcessModel(
       name: name,
       arrivedTime: parameters[0],
       cpuTime: parameters[1],
@@ -92,10 +96,4 @@ List<Process> getProcessList({
   }
 
   return processes;
-}
-
-extension SortingBasedOnArrivedTime on List<Process> {
-  void sortingBasedOnArrivedTime() {
-    sort((a, b) => a.arrivedTime.compareTo(b.arrivedTime));
-  }
 }

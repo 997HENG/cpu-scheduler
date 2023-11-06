@@ -1,5 +1,5 @@
-import 'package:cpu_scheduler/model/process.dart';
+import 'package:cpu_scheduler/process/process_model.dart';
 
 void main(List<String> arguments) {
-  getProcessList();
+  getProcessesList();
 }

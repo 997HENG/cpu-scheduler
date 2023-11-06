@@ -1,10 +1,12 @@
-import 'package:cpu_scheduler/model/process.dart';
+import 'package:cpu_scheduler/process/process.dart';
+import 'package:cpu_scheduler/process/process_model.dart';
 import 'package:test/test.dart';
 
 void main() {
-  test('Object equality', () {
-    expect(
-      Process.empty(),
+  test(
+    'constructor fromModel working',
+    () => expect(
+      Process.fromModel(model: ProcessModel.empty()),
       equals(
         Process(
           name: 'foo',
@@ -13,71 +15,66 @@ void main() {
           priority: 0,
         ),
       ),
-    );
-  });
-
-  test('getProcessList working', () {
-    expect(
-      getProcessList(
-        inputFn: () => '0',
-        getName: 'foo',
-        hint: false,
-      ),
-      equals(<Process>[
-        Process.empty(),
-        Process.empty(),
-        Process.empty(),
-        Process.empty(),
-        Process.empty(),
-      ]),
-    );
-  });
-  test('Sorting by arrivedTime', () {
-    final list = [
-      Process(
-        name: 'foo',
-        arrivedTime: 1,
-        cpuTime: 0,
-        priority: 0,
-      ),
-      Process(
-        name: 'foo',
-        arrivedTime: 2,
-        cpuTime: 0,
-        priority: 0,
-      ),
-      Process(
-        name: 'foo',
-        arrivedTime: 0,
-        cpuTime: 0,
-        priority: 0,
-      ),
-    ]..sortingBasedOnArrivedTime();
-
-    expect(
-      list,
+    ),
+  );
+  test(
+    'method runtime working',
+    () => expect(
+      Process.fromModel(model: ProcessModel.empty()),
       equals(
-        <Process>[
-          Process(
-            name: 'foo',
-            arrivedTime: 0,
-            cpuTime: 0,
-            priority: 0,
-          ),
-          Process(
-            name: 'foo',
-            arrivedTime: 1,
-            cpuTime: 0,
-            priority: 0,
-          ),
-          Process(
-            name: 'foo',
-            arrivedTime: 2,
-            cpuTime: 0,
-            priority: 0,
-          ),
+        Process(
+          name: 'foo',
+          arrivedTime: 0,
+          cpuTime: 0,
+          priority: 0,
+        ),
+      ),
+    ),
+  );
+  test(
+    'getProcessListFromModel working',
+    () => expect(
+      getProcessListFromModel(
+        model: [
+          ProcessModel.empty(),
+          ProcessModel.empty(),
+          ProcessModel.empty(),
+          ProcessModel.empty(),
+          ProcessModel.empty(),
         ],
       ),
-    );
-  });
+      equals([
+        Process(
+          name: 'foo',
+          arrivedTime: 0,
+          cpuTime: 0,
+          priority: 0,
+        ),
+        Process(
+          name: 'foo',
+          arrivedTime: 0,
+          cpuTime: 0,
+          priority: 0,
+        ),
+        Process(
+          name: 'foo',
+          arrivedTime: 0,
+          cpuTime: 0,
+          priority: 0,
+        ),
+        Process(
+          name: 'foo',
+          arrivedTime: 0,
+          cpuTime: 0,
+          priority: 0,
+        ),
+        Process(
+          name: 'foo',
+          arrivedTime: 0,
+          cpuTime: 0,
+          priority: 0,
+        ),
+      ]),
+    ),
+  );
 }
