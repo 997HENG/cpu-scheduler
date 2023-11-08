@@ -1,5 +1,5 @@
-import 'package:cpu_scheduler/extensions/list_process_model.dart';
-import 'package:cpu_scheduler/process/process_model.dart';
+import 'package:cpu_scheduler/src/extensions/list_process_model.dart';
+import 'package:cpu_scheduler/src/process/process_model.dart';
 import 'package:test/test.dart';
 
 void main() {
@@ -17,9 +17,10 @@ void main() {
     );
   });
 
-  test('getProcessList working', () {
+  test('getProcessModelsList working', () {
     expect(
-      getProcessesList(
+      getProcessModelsList(
+        count: 5,
         inputFn: () => '0',
         getName: 'foo',
         hint: false,
@@ -108,4 +109,37 @@ void main() {
       ),
     );
   });
+  test(
+    'extension findByName working',
+    () => expect(
+      [
+        ProcessModel(
+          name: 'foo',
+          arrivedTime: 0,
+          cpuTime: 0,
+          priority: 0,
+        ),
+        ProcessModel(
+          name: 'bar',
+          arrivedTime: 0,
+          cpuTime: 0,
+          priority: 0,
+        ),
+        ProcessModel(
+          name: 'baz',
+          arrivedTime: 0,
+          cpuTime: 0,
+          priority: 0,
+        ),
+      ].findByName(name: 'bar'),
+      equals(
+        ProcessModel(
+          name: 'bar',
+          arrivedTime: 0,
+          cpuTime: 0,
+          priority: 0,
+        ),
+      ),
+    ),
+  );
 }
