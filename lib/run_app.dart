@@ -3,7 +3,6 @@ import 'package:cpu_scheduler/src/algorithm/priority.dart';
 import 'package:cpu_scheduler/src/algorithm/rr.dart';
 import 'package:cpu_scheduler/src/algorithm/srtf.dart';
 import 'package:cpu_scheduler/src/extensions/list_process_model.dart';
-import 'package:cpu_scheduler/src/process/process_model.dart';
 
 void run() {
   while (true) {
